@@ -1,0 +1,321 @@
+@import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap');
+
+/* Enhanced Animations and Transitions */
+* {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fa-download {
+    margin-right: 8px;
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.scale-in {
+    animation: scaleIn 0.3s ease-out;
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.slide-in {
+    animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(-20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.fa-play {
+    margin-left: 5px;
+    transition: transform 0.3s ease;
+}
+
+.fa-play:hover {
+    transform: scale(1.2);
+}
+
+.fa-pause {
+    margin-left: 5px;
+    transition: transform 0.3s ease;
+}
+
+.fa-pause:hover {
+    transform: scale(1.2);
+}
+
+body {
+    font-family: 'Amiri', serif;
+    background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.dark body {
+    background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+}
+
+main {
+    padding-bottom: 16rem;
+}
+
+.surah-card {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(229, 231, 235, 0.5);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+        0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.surah-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.surah-card button {
+    transform: translateY(0);
+    transition: all 0.3s ease;
+}
+
+.surah-card:hover button {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.nav-blur {
+    backdrop-filter: blur(16px);
+    background: rgba(16, 185, 129, 0.95);
+    transform: translateY(0);
+    transition: transform 0.3s ease;
+}
+
+.nav-blur.hidden {
+    transform: translateY(-100%);
+}
+
+.dark .nav-blur {
+    background: rgba(6, 78, 59, 0.95);
+}
+
+.player-bar {
+    backdrop-filter: blur(16px);
+    background: rgba(255, 255, 255, 0.9);
+    transform: translateY(0);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.player-bar.hidden {
+    transform: translateY(100%);
+}
+
+.dark .player-bar {
+    background: rgba(31, 41, 55, 0.9);
+}
+
+select,
+input[type="search"] {
+    transition: all 0.3s ease;
+}
+
+select:hover,
+input[type="search"]:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+input[type="range"] {
+    -webkit-appearance: none;
+    background: #d1d5db;
+    border-radius: 9999px;
+    height: 6px;
+    transition: all 0.3s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #10b981;
+    cursor: pointer;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.progress-container {
+    background: rgba(209, 213, 219, 0.3);
+    border-radius: 9999px;
+    height: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.progress-container:hover {
+    height: 8px;
+}
+
+.progress-bar {
+    background: linear-gradient(90deg, #10b981, #059669);
+    border-radius: 9999px;
+    height: 100%;
+    transition: width 0.1s linear, transform 0.3s ease;
+}
+
+.progress-bar:hover {
+    transform: scaleY(1.2);
+}
+
+footer {
+    background: rgba(31, 41, 55, 0.9);
+    padding: 1rem;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    font-size: 0.9rem;
+    animation: footerSlideUp 1s ease-out;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+    color: white;
+    z-index: 30;
+    transform: translateY(-80px);
+    height: 80px;
+}
+
+@keyframes footerSlideUp {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(-80px);
+        opacity: 1;
+    }
+}
+
+@keyframes heartbeat {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.heart-icon {
+    color: #ef4444;
+    animation: heartbeat 1s infinite;
+    display: inline-block;
+}
+
+.header-title {
+    animation: slideInFromTop 1.2s ease-in-out, glowPulse 3s infinite;
+    background: linear-gradient(90deg, #60a5fa, #818cf8, #60a5fa);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    transition: all 0.3s ease;
+}
+
+@keyframes slideInFromTop {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes glowPulse {
+    0% {
+        text-shadow: 0 0 10px rgba(96, 165, 250, 0.5);
+    }
+
+    50% {
+        text-shadow: 0 0 20px rgba(96, 165, 250, 0.8);
+    }
+
+    100% {
+        text-shadow: 0 0 10px rgba(96, 165, 250, 0.5);
+    }
+}
+
+button {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+@keyframes highlightCard {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+        background-color: rgba(16, 185, 129, 0.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.highlight-card {
+    animation: highlightCard 1s ease-in-out;
+}
+

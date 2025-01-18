@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ar" class="light" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>القرآن الكريم</title>
+    <link rel="shortcut icon" href="quran-favicon.png" type="image/x-icon">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet" href="styles.css">
+
+    <script src="script.js" defer></script>
+    
+</head>
+<body class="min-h-screen transition-colors duration-300">
+    <noscript>
+        <style>
+            .no-js-message {
+                display: block;
+                text-align: center;
+                padding: 20px;
+                background-color: #ffcc00;
+                color: #000;
+            }
+        </style>
+        <div class="no-js-message">
+            يرجى تمكين JavaScript لتشغيل هذا الموقع بشكل صحيح.
+        </div>
+    </noscript>
+
+    <nav class="nav-blur text-white p-4 sticky top-0 z-50 shadow-lg">
+        <div class="container mx-auto flex flex-col sm:flex-row gap-4 justify-between items-center">
+            <h1 class="text-2xl font-bold flex items-center gap-2 header-title">
+                <i class="fas fa-quran text-3xl"></i>
+                القرآن الكريم
+            </h1>
+            <div class="flex items-center gap-4">
+                <button id="darkModeToggle" class="p-2 rounded-full hover:bg-emerald-700 dark:hover:bg-emerald-900 transition-colors" aria-label="Toggle Dark Mode">
+                    <i class="fas fa-moon dark:hidden"></i>
+                    <i class="fas fa-sun hidden dark:block"></i>
+                </button>
+                <select id="languageSelect" class="p-2 border rounded-lg dark:bg-gray-700 dark:text-white dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-colors">
+                    <option value="ar">العربية</option>
+                    <option value="en">English</option>
+                    <option value="ur">اردو</option>
+                    <option value="fr">Français</option>
+                </select>
+                <select id="searchType" class="p-2 border rounded-lg dark:bg-gray-700 dark:text-white dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-colors">
+                    <option value="surah">سورة</option>
+                    <option value="reciter">قارئ</option>
+                </select>
+                <div class="relative flex-1 sm:w-64">
+                    <input type="search" 
+                           id="searchInput" 
+                           class="search-input w-full px-10 py-2 text-gray-900 dark:text-white bg-white dark:bg-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-colors"
+                           placeholder="ابحث...">
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto p-4 mb-44">
+        <div id="loading" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+            <div class="animate-spin rounded-full h-32 w-32 border-b-2 border-emerald-500"></div>
+        </div>
+
+        <div class="mb-8 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg transition-colors">
+            <h2 class="text-xl font-bold mb-4 dark:text-white flex items-center gap-2">
+                <i class="fas fa-microphone-alt"></i>
+                <span class="reciter-label">اختر القارئ</span>
+            </h2>
+            <select id="reciterSelect" class="w-full md:w-64 p-2 border rounded-lg dark:bg-gray-700 dark:text-white dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-colors">
+                <option value="">اختر القارئ...</option>
+            </select>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="surahList">
+            <!-- Surah cards will be dynamically inserted here -->
+        </div>
+    </main>
+
+    <div class="player-bar fixed bottom-0 left-0 right-0 shadow-lg p-4 border-t dark:border-gray-700 transition-colors z-50">
+        <div class="container mx-auto flex flex-col md:flex-row items-center gap-4">
+            <div class="flex items-center gap-4">
+                <button id="playButton" class="bg-emerald-600 dark:bg-emerald-700 text-white p-3 rounded-full hover:bg-emerald-700 dark:hover:bg-emerald-800 transition-colors disabled:opacity-50" disabled aria-label="Play">
+                    <i class="fas fa-play"></i>
+                    Play
+                </button>
+                <div class="text-gray-800 dark:text-white">
+                    <div id="currentSurah" class="font-bold">لم يتم اختيار سورة</div>
+                    <div id="currentReciter" class="text-sm text-gray-600 dark:text-gray-400">لم يتم اختيار قارئ</div>
+                </div>
+            </div>
+            <div class="flex-grow">
+                <div class="relative w-full h-2 bg-gray-200 dark:bg-gray-700 rounded cursor-pointer" id="progressContainer">
+                    <div id="progressBar" class="absolute h-full bg-emerald-500 rounded" style="width: 0%"></div>
+                </div>
+                <div class="flex justify-between text-sm text-gray-600 dark:text-gray-400 mt-1">
+                    <span id="currentTime">0:00</span>
+                    <span id="duration">0:00</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-volume-up text-gray-600 dark:text-gray-400"></i>
+                    <input type="range" id="volumeControl" class="w-24" min="0" max="100" value="100">
+                </div>
+                <button id="downloadButton" class="bg-emerald-600 dark:bg-emerald-700 text-white px-4 py-2 rounded-lg hover:bg-emerald-700 dark:hover:bg-emerald-800 transition-colors disabled:opacity-50" disabled>
+                    <i class="fas fa-download ml-2"></i> تحميل
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p class="footer-text">
+            Copyrights Reserved to the Creator Muhammad Gawad 
+        </p>
+        <p class="footer-text">Made with <i class="fas fa-heart heart-icon"></i></p>
+    </footer>
+</body>
+</html>
